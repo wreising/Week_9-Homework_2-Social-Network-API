@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/wreising/Week_9-Homework_2-Social-Network-API/issues"
   },
-  "homepage": "https://github.com/wreising/Week_9-Homework_2-Social-Network-API#readme"
+  "homepage": "https://github.com/wreising/Week_9-Homework_2-Social-Network-API#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "mongoose": "^6.2.10"
+  }
 }
