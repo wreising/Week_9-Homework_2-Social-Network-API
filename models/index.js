@@ -1,3 +1,3 @@
-const Genre = require('./Genre');
+const Post = require('./Posts')
 
-module.exports = { Genre };
+module.exports = { Post }

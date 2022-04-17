@@ -1,13 +1,14 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-const genreSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  lastAccessed: { type: Date, default: Date.now },
-});
+const postSchema = new mongoose.Schema({
+  postName: { type: String, required: true },
+  postBody: { type: String, required: true, length: [1, 2000] },
+  dateCreated: { type: Date, default: Date.now },
+})
 
-const Genre = mongoose.model('Genre', genreSchema);
+const Post = mongoose.model('Post', postSchema)
 
-const handleError = (err) => console.error(err);
+const handleError = (err) => console.error(err)
 
 // Will add data only if collection is empty to prevent duplicates
 // More than one document can have the same name value
@@ -32,4 +33,4 @@ const handleError = (err) => console.error(err);
 //   }
 // });
 
-module.exports = Genre;
+module.exports = Post
