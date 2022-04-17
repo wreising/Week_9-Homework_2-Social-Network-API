@@ -6,7 +6,7 @@ const reactionsSchema = new mongoose.Schema({
   dateCreated: { type: Date, default: Date.now },
 })
 
-const Reactions = mongoose.model('Reaction', reactionSchema)
+const Reactions = mongoose.model('Reaction', reactionsSchema)
 
 const handleError = (err) => console.error(err)
 
