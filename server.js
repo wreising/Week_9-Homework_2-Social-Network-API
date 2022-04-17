@@ -1,8 +1,11 @@
 const express = require('express')
+
+
 const db = require('./config/connection')
 
+// const routes = require('./routes')
 
-// Require model
+
 const { Post } = require('./models')
 
 
@@ -14,8 +17,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 
-
-// Creates a new document
+// Creates a new post
 app.post('/posts', async ({ body }, res) => {
   try {
     const post = await Post.create(body)
@@ -27,7 +29,7 @@ app.post('/posts', async ({ body }, res) => {
 
 
 
-// Finds all documents
+// Finds all posts
 app.get('/posts', async (req, res) => {
   try {
     const posts = await Post.find({})
@@ -39,8 +41,8 @@ app.get('/posts', async (req, res) => {
 
 
 
-// Find document with ID
-app.get('/posts/:id', async ({ params: { name } }, res) => {
+// Find post with ID
+app.get('/posts/:id', async ({ params: { id } }, res) => {
   try {
     const post = await Post.findOne({})
     res.json(post)
@@ -51,19 +53,7 @@ app.get('/posts/:id', async ({ params: { name } }, res) => {
 
 
 
-// Find first document with name equal to "Kids"
-app.get('/posts/:name', async ({ params: { name } }, res) => {
-  try {
-    const post = await Post.findOne({ name })
-    res.json(post)
-  } catch (err) {
-    res.status(500).json({ err })
-  }
-})
-
-
-
-// Finds first document that matches and deletes
+// Finds first post that matches the id and deletes
 app.delete('/posts/:id', async ({ params: { id } }, res) => {
   try {
     await Post.findByIdAndDelete(id)
@@ -75,8 +65,8 @@ app.delete('/posts/:id', async ({ params: { id } }, res) => {
 
 
 
-// Finds the first document with the name with the value equal to 'Kids' and updates that name to the provided URL param value
-app.put('/Posts/:id', async ({ params: { id }, body }, res) => {
+// Finds the first post bu id and updates that name to the param value
+app.put('/Posts/:id', async ({ params: { id }, postName, postBody }, res) => {
   try {
     await Post.findByIdAndUpdate(id, body)
     res.json({ message: 'Post successfully updated!' })
@@ -86,9 +76,8 @@ app.put('/Posts/:id', async ({ params: { id }, body }, res) => {
 })
 
 
-
 db.once('open', () => {
   app.listen(PORT, () => {
-    console.log(`API server running on port ${PORT}!`)
+    console.log(`Social Network API server running on port ${PORT}!`)
   })
 })
