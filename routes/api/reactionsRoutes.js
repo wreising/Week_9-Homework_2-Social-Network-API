@@ -1,12 +1,13 @@
-const Reactions = require('express').Router()
-
+const express = require('express')
+const Reactions = express();
 
 // Creates a new post
-Reactions.post('/reactions', async ({ body }, res) => {
+Reactions.post('/', async ({ body }, res) => {
   try {
     const reaction = await Reaction.create(body)
     res.json(reaction)
   } catch (err) {
+    console.error(err);
     res.status(500).json({ err })
   }
 })

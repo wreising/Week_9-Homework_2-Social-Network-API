@@ -1,8 +1,9 @@
-const Users = require('express').Router()
+const express = require('express');
+const Users = express();
 
 
 // Creates a new user
-Users.post('/users', async ({ body }, res) => {
+Users.post('/', async ({ body }, res) => {
   try {
     const user = await User.create(body)
     res.json(user)

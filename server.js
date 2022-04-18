@@ -10,6 +10,8 @@ const app = express()
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
+// console.log(routes);
+
 app.use(routes) // this is the routes file - we'll see - added for test
 
 // // Creates a new post
