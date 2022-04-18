@@ -1,8 +1,9 @@
-const Posts = require('express').Router()
+const express = require('express');
+const Posts = express();
 
 
 // Creates a new post
-Posts.post('/posts', async ({ body }, res) => {
+Posts.post('/', async ({ body }, res) => { // not having /posts at least gives an error
   try {
     const post = await Post.create(body)
     res.json(post)
@@ -14,7 +15,7 @@ Posts.post('/posts', async ({ body }, res) => {
 
 
 // Finds all posts
-Posts.get('/posts', async (req, res) => {
+Posts.get('/posts', async (req, res) => { // '/posts' ?? or just '/'
   try {
     const posts = await Post.find({})
     res.json(posts)
