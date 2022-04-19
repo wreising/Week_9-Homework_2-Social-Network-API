@@ -1,8 +1,9 @@
-const express = require('express')
-const Reactions = express();
+const express = require('express');
+const Reaction = require('../../models/Reactions')
+const app = express();
 
-// Creates a new post
-Reactions.post('/', async ({ body }, res) => {
+// Creates a new reaction ----------------------------------------------
+app.post('/', async ({ body }, res) => {
   try {
     const reaction = await Reaction.create(body)
     res.json(reaction)
@@ -12,34 +13,28 @@ Reactions.post('/', async ({ body }, res) => {
   }
 })
 
-
-
-// Finds all reactions
-Reactions.get('/reactions', async (req, res) => {
+// Finds all reactions ----------------------------------------------
+app.get('/', async (req, res) => {
   try {
     const reactions = await Reaction.find({})
-    res.json(reaction)
+    res.json(reactions)
   } catch (err) {
     res.status(500).json({ err })
   }
 })
 
-
-
-// Find reaction with ID
-Reactions.get('/reactions/:id', async ({ params: { id } }, res) => {
+// Find reaction with ID ----------------------------------------------
+app.get('/:id', async ({ params: { id } }, res) => {
   try {
-    const reaction = await Reaction.findOne({})
+    const reaction = await Reaction.findOne({ _id: id })
     res.json(reaction)
   } catch (err) {
     res.status(500).json({ err })
   }
 })
 
-
-
-// Finds first reaction that matches the id and deletes
-Reactions.delete('/reactions/:id', async ({ params: { id } }, res) => {
+// Finds first reaction that matches the id and deletes ----------------------------------------------
+app.delete('/:id', async ({ params: { id } }, res) => {
   try {
     await Reaction.findByIdAndDelete(id)
     res.json({ message: 'Reaction successfully deleted!' })
@@ -48,10 +43,8 @@ Reactions.delete('/reactions/:id', async ({ params: { id } }, res) => {
   }
 })
 
-
-
-// Finds the first reaction bu id and updates that name to the param value
-Reactions.put('/reactions/:id', async ({ params: { id }, postName, postBody }, res) => {
+// Finds the first post by id and updates that name to the param value ----------------------------------------------
+app.put('/:id', async ({ params: { id }, name, body }, res) => {
   try {
     await Reaction.findByIdAndUpdate(id, body)
     res.json({ message: 'Reaction successfully updated!' })
@@ -60,4 +53,4 @@ Reactions.put('/reactions/:id', async ({ params: { id }, postName, postBody }, r
   }
 })
 
-module.exports = Reactions
+module.exports = app

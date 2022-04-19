@@ -1,63 +1,56 @@
 const express = require('express');
-const Users = express();
+const User = require('../../models/Users')
+const app = express();
 
-
-// Creates a new user
-Users.post('/', async ({ body }, res) => {
+// Creates a new users ----------------------------------------------
+app.post('/', async ({ body }, res) => {
   try {
     const user = await User.create(body)
     res.json(user)
   } catch (err) {
+    console.error(err);
     res.status(500).json({ err })
   }
 })
 
-
-
-// Finds all users
-Users.get('/users', async (req, res) => {
+// Finds all users ----------------------------------------------
+app.get('/', async (req, res) => {
   try {
-    const user = await User.find({})
+    const users = await User.find({})
+    res.json(users)
+  } catch (err) {
+    res.status(500).json({ err })
+  }
+})
+
+// Find user with ID ----------------------------------------------
+app.get('/:id', async ({ params: { id } }, res) => {
+  try {
+    const user = await User.findOne({ _id: id })
     res.json(user)
   } catch (err) {
     res.status(500).json({ err })
   }
 })
 
-
-
-// Find user with ID
-Users.get('/users/:id', async ({ params: { id } }, res) => {
-  try {
-    const user = await User.findOne({})
-    res.json(user)
-  } catch (err) {
-    res.status(500).json({ err })
-  }
-})
-
-
-
-// Finds first user that matches the id and deletes
-Users.delete('/users/:id', async ({ params: { id } }, res) => {
+// Finds first user that matches the id and deletes ----------------------------------------------
+app.delete('/:id', async ({ params: { id } }, res) => {
   try {
     await User.findByIdAndDelete(id)
-    res.json({ message: 'Reaction successfully deleted!' })
+    res.json({ message: 'User successfully deleted!' })
   } catch (err) {
     res.status(500).json({ err })
   }
 })
 
-
-
-// Finds the first user by id and updates that name to the param value
-Users.put('/users/:id', async ({ params: { id }, postName, postBody }, res) => {
+// Finds the first user by id and updates that name to the param value ----------------------------------------------
+app.put('/:id', async ({ params: { id }, name, body }, res) => {
   try {
     await User.findByIdAndUpdate(id, body)
-    res.json({ message: 'Reaction successfully updated!' })
+    res.json({ message: 'User successfully updated!' })
   } catch (err) {
     res.status(500).json({ err })
   }
 })
 
-module.exports = Users
+module.exports = app

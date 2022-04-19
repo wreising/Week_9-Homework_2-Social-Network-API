@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const reactionsSchema = new mongoose.Schema({
   userName: { type: String, required: true },
-  reactionBody: { type: Array, required: true },
+  reaction: { type: String, required: true },
   dateCreated: { type: Date, default: Date.now },
 })
 
