@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express()
 
-const posts = require('./postsRoutes')
+const thoughts = require('./thoughtsRoutes')
 const reactions = require('./reactionsRoutes')
 const users = require('./usersRoutes')
 
-router.use('/posts', posts)
+router.use('/thoughts', thoughts)
 router.use('/reactions', reactions)
 router.use('/users', users)
 

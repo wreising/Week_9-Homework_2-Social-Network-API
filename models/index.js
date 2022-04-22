@@ -1,4 +1,4 @@
-const Post = require('./Posts')
+const Post = require('./Thoughts')
 const User = require('./Users')
 const Reactions = require('./Reactions')
 

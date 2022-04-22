@@ -1,7 +1,7 @@
 // This is all working
 
 const express = require('express');
-const Post = require('../../models/Posts')
+const Post = require('../../models/Thoughts')
 const app = express();
 
 // Creates a new post ----------------------------------------------
